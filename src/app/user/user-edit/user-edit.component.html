@@ -1,1 +1,73 @@
-<p>user-edit works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <label for="user">Id</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input
+            type="text"
+            id="id"
+            class="form-control"
+            formControlName="id"
+            required
+            disabled
+          />
+        </div>
+      </div>
+      <div class="row">
+        <label for="title">Email</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 form-group">
+          <input
+            type="text"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            email
+            disabled
+          />
+        </div>
+      </div>
+      <div class="row">
+        <label for="body">Name</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="row">
+        <label for="body">Last Name</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <input
+            type="text"
+            id="lastName"
+            class="form-control"
+            formControlName="lastName"
+            required
+            disabled
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 btn-toolbar">
+          <button class="btn btn-danger" type="button" (click)="onCancel()">
+            Back
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

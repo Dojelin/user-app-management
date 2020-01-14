@@ -3,39 +3,73 @@
     <div class="alert alert-danger" *ngIf="error">
       <p>{{ error }}</p>
     </div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-      <div class="form-group">
+    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+      <div>
         <label for="email">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          ngModel
-          name="email"
-          required
-          email
-        />
+        <div class="col-sm-12 form-group">
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            required
+            email
+          />
+        </div>
       </div>
-      <div class="form-group">
+      <div>
         <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          ngModel
-          name="password"
-          required
-          minlength="8"
-        />
+        <div class="col-sm-12 form-group">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            required
+            minlength="8"
+          />
+        </div>
+      </div>
+      <div>
+        <label for="repassword">Retype Password</label>
+        <div class="col-sm-12 form-group">
+          <input
+            type="password"
+            id="repassword"
+            class="form-control"
+            formControlName="repassword"
+            required
+            minlength="8"
+          />
+        </div>
       </div>
       <div>
         <button
           class="btn btn-primary"
           type="submit"
-          [disabled]="!authForm.valid"
+          [disabled]="!inscriptionForm.valid"
         >
           Create User
         </button>
+      </div>
+
+      <div
+        *ngIf="
+          inscriptionForm.controls.password.invalid &&
+          (inscriptionForm.controls.password.dirty ||
+            inscriptionForm.controls.password.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="inscriptionForm.controls.password.errors.required">
+          password is required.
+        </div>
+        <div *ngIf="inscriptionForm.controls.password.errors.minlength">
+          password must be at least 8 characters long.
+        </div>
+        <div *ngIf="inscriptionForm.controls.password.errors">
+          password must have one uppercase and one lowercase.
+        </div>
       </div>
     </form>
   </div>

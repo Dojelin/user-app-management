@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../authentication/authentication.service";
 import { Router } from "@angular/router";
 
@@ -9,28 +9,53 @@ import { Router } from "@angular/router";
   styleUrls: ["./inscription.component.css"]
 })
 export class InscriptionComponent implements OnInit {
+  inscriptionForm: FormGroup;
   error: string;
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initForm();
+  }
 
-  onSubmit(form: NgForm) {
+  onSubmit() {
+    const form = this.inscriptionForm;
     if (!form.valid) {
       return;
     }
 
     const email = form.value.email;
     const password = form.value.password;
+    const repassword = form.value.repassword;
 
-    this.authService.inscription(email, password).subscribe(
-      responseData => {
-        this.router.navigate(["/users"]);
-      },
-      errorMessage => {
-        this.error = errorMessage;
-      }
-    );
+    if (password === repassword) {
+      this.authService.inscription(email, password).subscribe(
+        responseData => {
+          this.router.navigate(["/users"]);
+        },
+        errorMessage => {
+          this.error = errorMessage;
+        }
+      );
 
-    form.reset();
+      form.reset();
+      this.error = null;
+    } else {
+      this.error = "Password must be identical";
+    }
+  }
+
+  private initForm() {
+    let email = "";
+    let password = "";
+    let repassword = "";
+
+    this.inscriptionForm = new FormGroup({
+      email: new FormControl(email, Validators.email),
+      password: new FormControl(
+        password
+        // Validators.pattern("(.*[a-z].*)(.*[A-Z].*)")
+      ),
+      repassword: new FormControl(repassword)
+    });
   }
 }
