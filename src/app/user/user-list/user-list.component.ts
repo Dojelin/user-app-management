@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from "../user.model";
+import { UserService } from "../user.service";
 
 @Component({
   selector: "app-user-list",
@@ -8,7 +9,11 @@ import { User } from "../user.model";
 })
 export class UserListComponent implements OnInit {
   users: User[];
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userService.getUsers().subscribe(usersPaginated => {
+      this.users = usersPaginated.data;
+    });
+  }
 }

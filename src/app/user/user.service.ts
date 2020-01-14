@@ -11,11 +11,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers() {
-    return this.http.get<User[]>("https://reqres.in/api/users").pipe(
-      catchError(this.handleError),
-      tap(responseListUsers => {
-        this.users.next(responseListUsers);
-      })
+    return this.http.get<any>("https://reqres.in/api/users").pipe(
+      catchError(this.handleError)
+      //   tap(responseListUsers => {
+      //     this.users.next(responseListUsers);
+      //   })
     );
   }
 

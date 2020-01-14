@@ -10,6 +10,7 @@ import { AuthenticationComponent } from "./authentication/authentication.compone
 import { UserListComponent } from "./user/user-list/user-list.component";
 import { UserEditComponent } from "./user/user-edit/user-edit.component";
 import { HeaderComponent } from "./header/header.component";
+import { UserService } from "./user/user.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HeaderComponent } from "./header/header.component";
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
